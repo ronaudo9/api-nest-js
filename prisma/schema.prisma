@@ -9,3 +9,176 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model user {
+  userId            Int               @id @default(autoincrement())
+  email             String            @unique
+  employeeNumber    Int
+  joinDate          String
+  userName          String
+  affiliation       String
+  businessSituation String
+  password          String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  deletedAt         DateTime?
+  skills            skill[]
+  skillPoints       skillPoint[]
+  specialAbilities  spaecialAbility[]
+  specs             spec[]
+  requests          request[]
+}
+
+model skill {
+  skillId             Int      @id @default(autoincrement())
+  userId              Int
+  InherentName        String
+  InherentDescription String
+  updatedAt           DateTime @updatedAt
+  user                user     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model skillPoint {
+  skillPointId Int  @id @default(autoincrement())
+  userId       Int
+  FR           Int
+  BK           Int
+  DB           Int
+  SVL          Int
+  AR           Int
+  TS           Int
+  COM          Int
+  user         user @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model spaecialAbility {
+  spaecialAbilityId Int     @id @default(autoincrement())
+  userId            Int
+  skillList         String
+  skillSelection    Boolean
+  tagColor          Int
+  user              user    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model spec {
+  specId                 Int                     @id @default(autoincrement())
+  userId                 Int
+  github                 String
+  offHours               String
+  searches               Boolean                 @default(true)
+  createdAt              DateTime                @default(now())
+  user                   user                    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  portfolios             portfolio[]
+  skillSummaries         skillSummary[]
+  sellingPoints          sellingPoint[]
+  qualifications         qualification[]
+  previousWorks          previousWork[]
+  developmentExperiences developmentExperience[]
+  finds                  find[]
+}
+
+model portfolio {
+  portfolioId Int    @id @default(autoincrement())
+  specId      Int
+  heading     String
+  url         String
+  spec        spec   @relation(fields: [specId], references: [specId], onDelete: Cascade)
+}
+
+model skillSummary {
+  skillSummaryId      Int      @id @default(autoincrement())
+  specId              Int
+  environment         String[]
+  programmingLanguage String[]
+  framework           String[]
+  library             String[]
+  cloud               String[]
+  tool                String[]
+  developmentDomain   String[]
+  spec                spec     @relation(fields: [specId], references: [specId], onDelete: Cascade)
+}
+
+model sellingPoint {
+  sellingPointId Int    @id @default(autoincrement())
+  specId         Int
+  title          String
+  content        String
+  spec           spec   @relation(fields: [specId], references: [specId], onDelete: Cascade)
+}
+
+model qualification {
+  qualificationId Int    @id @default(autoincrement())
+  specId          Int
+  credential      String
+  acquisitionDate String
+  spec            spec   @relation(fields: [specId], references: [specId], onDelete: Cascade)
+}
+
+model previousWork {
+  previousWorkId Int    @id @default(autoincrement())
+  specId         Int
+  industry       String
+  occupation     String
+  JobDuties      String
+  spec           spec   @relation(fields: [specId], references: [specId], onDelete: Cascade)
+}
+
+model developmentExperience {
+  developmentExperienceId Int      @id @default(autoincrement())
+  specId                  Int
+  startYear               String
+  startDate               String
+  duration                String
+  assignedTask            String
+  teamSize                String
+  totalProjectHeadcount   String
+  projectName             String
+  jobDuties               String
+  img                     String
+  environments            String[]
+  programmingLanguages    String[]
+  frameworks              String[]
+  tools                   String[]
+  spec                    spec     @relation(fields: [specId], references: [specId], onDelete: Cascade)
+}
+
+model find {
+  findId    Int      @id @default(autoincrement())
+  specId    Int
+  findItems String[]
+  spec      spec     @relation(fields: [specId], references: [specId], onDelete: Cascade)
+}
+
+model autoCalibration {
+  autoCalibrationId Int    @id @default(autoincrement())
+  skill             String
+  category          Int
+  FR                Int
+  CL                Int
+  ML                Int
+  QA                Int
+  JAVA              Int
+  PHP               Int
+}
+
+model request {
+  applicationId   Int      @id @default(autoincrement())
+  userId          Int
+  status          Int
+  adminComment    String?
+  engineerComment String
+  adminId         Int?
+  createdAt       DateTime @default(now())
+  resultedAt      DateTime @updatedAt
+  user            user     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  admin           admin?   @relation(fields: [adminId], references: [adminId])
+}
+
+model admin {
+  adminId   Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String
+  createdAt DateTime  @default(now())
+  requests  request[]
+}
