@@ -5,9 +5,9 @@ services:
     ports:
       - 5434:5432
     environment:
-      POSTGRES_USER: mydatabase
-      POSTGRES_PASSWORD: mydatabase
-      POSTGRES_DB: mydatabase
+      POSTGRES_USER: udemy
+      POSTGRES_PASSWORD: udemy
+      POSTGRES_DB: udemy
     restart: always
     networks:
       - lesson
