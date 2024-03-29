@@ -1,24 +1,25 @@
 import {
   IsEmail,
-  IsNotEmpty,
+  // IsNotEmpty,
   IsString,
-  MinLength,
+  // MinLength,
   IsInt,
   IsOptional,
 } from 'class-validator';
 
-export class AuthDto {
+export class UserDto {
   @IsEmail()
-  @IsNotEmpty()
+  @IsOptional()
   email: string;
-
   @IsString()
-  @IsNotEmpty()
-  @MinLength(5)
+  @IsOptional()
   password: string;
   @IsInt()
   @IsOptional()
   employeeNumber: number;
+  @IsInt()
+  @IsOptional()
+  userId: number;
   @IsString()
   @IsOptional()
   joinDate: string;
@@ -31,4 +32,10 @@ export class AuthDto {
   @IsString()
   @IsOptional()
   businessSituation: string;
+  @IsString()
+  @IsOptional()
+  createdAt: string;
+  @IsString()
+  @IsOptional()
+  updatedAt: string;
 }

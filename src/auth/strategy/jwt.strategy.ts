@@ -30,6 +30,14 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       where: {
         userId: payload.sub,
       },
+      include: {
+        skills: true,
+        skillPoints: true,
+        specialAbilities: true,
+        specs: {
+          where: { searches: true },
+        },
+      },
     });
     delete user.password;
     return user;

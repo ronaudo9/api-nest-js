@@ -36,7 +36,8 @@ export class AuthController {
     const jwt = await this.authService.login(dto);
     res.cookie('access_token', jwt.accessToken, {
       httpOnly: true,
-      secure: true,
+      // secure: trueの時はhttpsで暗号化されていた場合のみクライアントとのcookieの送受信が可能（つまり、デプロイ後はtrue）
+      secure: false,
       sameSite: 'none',
       path: '/',
     });
@@ -50,7 +51,8 @@ export class AuthController {
   logout(@Req() req: Request, @Res({ passthrough: true }) res: Response): Msg {
     res.cookie('access_token', '', {
       httpOnly: true,
-      secure: true,
+      // secure: trueの時はhttpsで暗号化されていた場合のみクライアントとのcookieの送受信が可能（つまり、デプロイ後はtrue）
+      secure: false,
       sameSite: 'none',
       path: '/',
     });
