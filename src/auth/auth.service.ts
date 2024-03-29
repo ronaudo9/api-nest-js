@@ -16,7 +16,6 @@ export class AuthService {
   ) {}
   async signUp(dto: AuthDto): Promise<Msg> {
     const hashed = await bcrypt.hash(dto.password, 12);
-    console.log(dto);
     try {
       await this.prisma.user.create({
         data: {
@@ -61,7 +60,7 @@ export class AuthService {
     };
     const secret = this.config.get('JWT_SECRET');
     const token = await this.jwt.signAsync(payload, {
-      expiresIn: '5m',
+      expiresIn: '6h',
       secret: secret,
     });
     return {
