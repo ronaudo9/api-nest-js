@@ -25,6 +25,6 @@ async function bootstrap() {
       },
     }),
   );
-  await app.listen(process.env.PORT || 8002);
+  await app.listen(process.env.NODE_ENV === 'development' ? 8002 : 8003);
 }
 bootstrap();

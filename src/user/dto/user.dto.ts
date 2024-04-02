@@ -1,41 +1,41 @@
 import {
   IsEmail,
-  // IsNotEmpty,
   IsString,
-  // MinLength,
   IsInt,
-  IsOptional,
+  IsNotEmpty,
+  MinLength,
 } from 'class-validator';
 
 export class UserDto {
   @IsEmail()
-  @IsOptional()
+  @IsNotEmpty()
   email: string;
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
+  @MinLength(5)
   password: string;
   @IsInt()
-  @IsOptional()
   employeeNumber: number;
   @IsInt()
-  @IsOptional()
   userId: number;
   @IsString()
-  @IsOptional()
   joinDate: string;
   @IsString()
-  @IsOptional()
   userName: string;
   @IsString()
-  @IsOptional()
   affiliation: string;
   @IsString()
-  @IsOptional()
   businessSituation: string;
+}
+
+export class UserUpdateDto {
+  @IsInt()
+  userId: number;
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
   @IsString()
-  @IsOptional()
-  createdAt: string;
-  @IsString()
-  @IsOptional()
-  updatedAt: string;
+  @IsNotEmpty()
+  @MinLength(5)
+  password: string;
 }

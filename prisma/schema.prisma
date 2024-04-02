@@ -11,20 +11,20 @@ datasource db {
 }
 
 model user {
-  userId            Int               @id @default(autoincrement())
-  email             String            @unique
+  userId            Int              @id @default(autoincrement())
+  email             String           @unique
   employeeNumber    Int
   joinDate          String
   userName          String
   affiliation       String
   businessSituation String
   password          String
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
   deletedAt         DateTime?
   skills            skill[]
   skillPoints       skillPoint[]
-  specialAbilities  spaecialAbility[]
+  specialAbilities  specialAbility[]
   specs             spec[]
   requests          request[]
 }
@@ -51,13 +51,13 @@ model skillPoint {
   user         user @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
 
-model spaecialAbility {
-  spaecialAbilityId Int     @id @default(autoincrement())
-  userId            Int
-  skillList         String
-  skillSelection    Boolean
-  tagColor          Int
-  user              user    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+model specialAbility {
+  specialAbilityId Int     @id @default(autoincrement())
+  userId           Int
+  skillList        String
+  skillSelection   Boolean
+  tagColor         Int
+  user             user    @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
 
 model spec {
