@@ -36,6 +36,15 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
         specialAbilities: true,
         specs: {
           where: { searches: true },
+          include: {
+            portfolios: true,
+            skillSummaries: true,
+            sellingPoints: true,
+            qualifications: true,
+            previousWorks: true,
+            developmentExperiences: true,
+            finds: true,
+          },
         },
       },
     });
